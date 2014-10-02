@@ -1,6 +1,6 @@
 {
   "name": "fastagi",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Write Fast AGI in node.js",
   "main": "index.js",
   "scripts": {
