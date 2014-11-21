@@ -38,8 +38,8 @@ function Executor(context){
 				console.error('[ERROR]', err);
 				deferred.reject(err);
 			}else{
-				console.log('[DEBUG]', method, res);
-				deferred.resolve();
+				console.log('[DEBUG]', method, args, res);
+				deferred.resolve(res.result);
 			}
 		});
 		var context = this._context;
