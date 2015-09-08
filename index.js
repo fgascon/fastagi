@@ -29,7 +29,7 @@ function Executor(context){
 	this._context = context;
 }
 
-['exec', 'getVariable', 'streamFile', 'waitForDigit', 'hangup'].forEach(function(method){
+['exec', 'getVariable', 'streamFile', 'waitForDigit', 'hangup', 'send'].forEach(function(method){
 	Executor.prototype[method] = function(){
 		var args = slice.call(arguments);
 		var deferred = Q.defer();
@@ -79,6 +79,19 @@ Response.prototype.then = function(callback){
 		this._currentAction = this._currentAction.then(callback);
 	}else{
 		this._currentAction = Q.when(callback);
+	}
+	return this;
+};
+
+Response.prototype.agiCommand = function(command){
+	var executor = this._executor;
+	function action(){
+		return executor.send(command);
+	}
+	if(this._currentAction){
+		this._currentAction = this._currentAction.then(action);
+	}else{
+		this._currentAction = action();
 	}
 	return this;
 };
